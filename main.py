@@ -8,6 +8,8 @@ from fastapi.staticfiles import StaticFiles
 import config
 from routers.frontend import frontend_router
 
+import webbrowser
+
 app = FastAPI()
 
 
@@ -30,6 +32,13 @@ async def lifespan(app: FastAPI):
     )
 
     app.include_router(frontend_router)
+    
+    # TODO: check if the user has never launched the project before
+    # probably some call to the api to check if the user has already created a project
+    
+    # open default browser to the frontend
+    if config.AUTO_LAUNCH_BROWSER:
+        webbrowser.open(f"http://localhost:{config.PORT}", new=2)
 
     yield
 

@@ -17,7 +17,7 @@ async def lifespan(app: FastAPI):
     # Respositories: used for interacting with the data directly
     # Usecases: the logic of the application, repositories work with it
     # Controllers: the interface between the frontend and the usecases (the API endpoints)
-    
+
     logger.info("Starting Frontend Service")
 
     web_path_for_css_and_javascript_files = "/static"
@@ -28,7 +28,7 @@ async def lifespan(app: FastAPI):
         StaticFiles(directory=directory_for_css_and_javascript_files),
         name="static",
     )
-    
+
     app.include_router(frontend_router)
 
     yield

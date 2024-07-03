@@ -4,11 +4,11 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 from fastapi.logger import logger
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 import config
 from routers.frontend import frontend_router
-from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 

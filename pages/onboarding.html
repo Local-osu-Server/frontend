@@ -23,7 +23,7 @@
         <label for="num_scores_seen_on_leaderboards">How many scores do you want to see on the leaderboard (max
             100)?</label>
         <input type="number" id="num_scores_seen_on_leaderboards" name="num_scores_seen_on_leaderboards" min="1"
-            max="100">
+            max="100" value="10">
 
         <label for="allow_pp_from_modified_maps">Do you want to have the ability to modify maps through the fun orange
             application and
@@ -31,19 +31,24 @@
         <input type="checkbox" id="allow_pp_from_modified_maps" name="allow_pp_from_modified_maps">
 
         <label for="osu_api_key">osu API key:</label>
-        <input type="text" id="osu_api_key" name="osu_api_key">
+        <input type="text" id="osu_api_key" name="osu_api_key" value="your_api_key">
 
         <label for="osu_daily_api_key">osu Daily API key:</label>
-        <input type="text" id="osu_daily_api_key" name="osu_daily_api_key">
+        <input type="text" id="osu_daily_api_key" name="osu_daily_api_key" value="your_daily_api_key">
 
-        <label for="osu_api_v2_key">osu API v2 key:</label>
-        <input type="text" id="osu_api_v2_key" name="osu_api_v2_key">
+        <label for="osu_api_v2_client_id">osu API v2 client id:</label>
+        <input type="number" id="osu_api_v2_client_id" name="osu_api_v2_client_id" value="1">
+
+        <label for="osu_api_v2_client_secret">osu API v2 key:</label>
+        <input type="password" id="osu_api_v2_client_secret" name="osu_api_v2_client_secret"
+            value="osu_api_v2_client_secret">
 
         <label for="osu_username">osu username:</label>
-        <input type="text" id="osu_username" name="osu_username">
+        <input type="text" id="osu_username" name="osu_username" value="your_username">
 
         <label for="osu_password">osu password:</label>
-        <input type="password" id="osu_password" name="osu_password">
+        <input type="password" id="osu_password" name="osu_password" value="your_password">
+    </form>
 
     </form>
 

@@ -47,7 +47,6 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan, debug=True)
 
-# TODO: understand this solution, https://github.com/tiangolo/fastapi/issues/1663
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

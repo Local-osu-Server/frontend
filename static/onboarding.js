@@ -75,7 +75,8 @@ const sendData = async () => {
     }
 
     // now kill the client
-    /* TODO: Implement this on the other service
+    // TODO: Implement this on the other service 
+    /* 
     const kill_response = await fetch(KILL_CLIENT_URL, {
         method: 'POST'
     });

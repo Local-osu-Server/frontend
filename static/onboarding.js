@@ -45,7 +45,13 @@ const sendData = async () => {
     }
 
     // TODO: Implement this on the other service
-    const osu_folder_path_response = await axios.get(OSU_FOLDER_PATH_URL_LINK);
+    let osu_folder_path_response;
+    try {
+        osu_folder_path_response = await axios.get(OSU_FOLDER_PATH_URL_LINK);
+    } catch (error) {
+        alert(error.response.data.error_message);
+        return;
+    }
 
     if (osu_folder_path_response.status >= 400) {
         alert("Could not get osu! path because osu! isn't opened.");
@@ -62,7 +68,7 @@ const sendData = async () => {
             { headers: { 'Content-Type': 'application/json' } }
         );
     } catch (error) {
-        alert(error.response);
+        alert(error.response.data.error_message);
         return
     }
 

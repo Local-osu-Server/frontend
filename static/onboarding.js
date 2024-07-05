@@ -7,6 +7,7 @@ const API_SERVER_SERVICE_ROOT_URL = "http://localhost:5000";
 const OSU_FOLDER_PATH_URL_LINK = `${OSU_CLIENT_SERVICE_ROOT_URL}/application/path`;
 const API_SERVER_CONFIGURATION_UPDATE_URL = `${API_SERVER_SERVICE_ROOT_URL}/api/v1/config/update`;
 const KILL_CLIENT_URL = `${OSU_CLIENT_SERVICE_ROOT_URL}/application/kill`;
+const API_SERVER_CREATE_CONFIG_URL = `${API_SERVER_SERVICE_ROOT_URL}/api/v1/config/create`;
 
 const sendData = async () => {
     alert(
@@ -80,17 +81,35 @@ const sendData = async () => {
             { headers: { 'Content-Type': 'application/json' } }
         );
     } catch (error) {
-        alert(error.response.data.error_message);
-        return
+        api_server_update_configuration_response = error.response;
+
+        if (api_server_update_configuration_response.status == 404) {
+            // no config exists, create one
+
+            let api_server_create_config_response;
+            try {
+                api_server_create_config_response = await axios.post(API_SERVER_CREATE_CONFIG_URL, configBody,
+                    { headers: { 'Content-Type': 'application/json' } }
+                );
+            } catch (error) {
+                alert(error.response.data.error_message);
+                return;
+            }
+
+            const api_server_create_config_response_data = api_server_create_config_response.data;
+
+            if (api_server_create_config_response.status >= 400) {
+                alert(api_server_create_config_response_data.error_message);
+                return;
+            }
+
+        } else if (api_server_update_configuration_response.status >= 400) {
+            const api_server_update_configuration_response_data = api_server_update_configuration_response.data;
+            alert(api_server_update_configuration_response_data.error_message);
+            return;
+        }
     }
 
-    const api_server_update_configuration_response_data = api_server_update_configuration_response.data;
-
-    // Send the specific error message that the server sends
-    if (api_server_update_configuration_response.status >= 400) {
-        alert(api_server_update_configuration_response_data.error_message);
-        return;
-    }
 
     // now kill the client
 

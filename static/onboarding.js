@@ -9,6 +9,10 @@ const API_SERVER_CONFIGURATION_UPDATE_URL = `${API_SERVER_SERVICE_ROOT_URL}/api/
 const KILL_CLIENT_URL = `${OSU_CLIENT_SERVICE_ROOT_URL}/application/kill`;
 
 const sendData = async () => {
+    alert(
+        "Please wait while we update the configuration. This may take a few seconds. You will be redirected to the dashboard once the configuration is updated."
+    )
+
     const form = document.querySelector('form');
     const formData = new FormData(form);
 
@@ -28,6 +32,14 @@ const sendData = async () => {
         if (key === 'num_scores_seen_on_leaderboards' || key === "osu_api_v2_client_id") {
             configBody[key] = parseInt(value);
             continue;
+        }
+
+        if (key === 'dedicated_dev_server_domain') {
+            // only get the "domain.com" part not the "https://"
+            // if the user enters "https://domain.com" or "http://domain.com"
+            // and if they give us "domain.com" we don't have to do anything
+            const domain = value.replace("https://", "").replace("http://", "").replace("/", "");
+            configBody[key] = domain;
         }
 
         configBody[key] = value;
@@ -81,18 +93,22 @@ const sendData = async () => {
     }
 
     // now kill the client
-    // TODO: Implement this on the other service 
-    /* 
-    const kill_response = await fetch(KILL_CLIENT_URL, {
-        method: 'POST'
-    });
 
-    const kill_response_data = await kill_response.json();
+    let kill_response;
+
+    try {
+        kill_response = await axios.post(KILL_CLIENT_URL);
+    } catch (error) {
+        alert(error.response.data.error_message);
+        return;
+    }
+
+    const kill_response_data = kill_response.data;
 
     if (kill_response.status >= 400) {
         alert(kill_response_data.error_message);
         return;
-    }*/
+    }
 
     // redirect to the dashboard
     window.location.href = "/";

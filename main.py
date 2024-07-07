@@ -38,7 +38,7 @@ async def lifespan(app: FastAPI):
 
     # open default browser to the frontend
     if config.AUTO_LAUNCH_BROWSER:
-        webbrowser.open(f"http://localhost:{config.PORT}", new=2)
+        webbrowser.open(f"http://localhost:8001", new=2)
 
     yield
 
@@ -58,6 +58,6 @@ app.add_middleware(
 if __name__ == "__main__":
     uvicorn.run(
         "main:app",
-        port=config.PORT,
+        port=8001,
         reload=True,
     )
